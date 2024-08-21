@@ -11,6 +11,7 @@ concurrency:
 jobs:
   nightly-binary:
     runs-on: nscloud
+    if: false
     steps:
       - uses: actions/checkout@v4
       # fetch all commits instead of only the last as some branches are long lived and could have many between versions
@@ -91,9 +92,9 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          platforms: linux/amd64,linux/arm64
+          platforms: linux/amd64
           push: true
-          tags: gitea/gitea:${{ steps.clean_name.outputs.branch }}
+          tags: youfu/gitea:${{ steps.clean_name.outputs.branch }}
   nightly-docker-rootless:
     runs-on: ubuntu-latest
     steps:
@@ -128,7 +129,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          platforms: linux/amd64,linux/arm64
+          platforms: linux/amd64
           push: true
           file: Dockerfile.rootless
-          tags: gitea/gitea:${{ steps.clean_name.outputs.branch }}-rootless
+          tags: youfu/gitea:${{ steps.clean_name.outputs.branch }}-rootless
